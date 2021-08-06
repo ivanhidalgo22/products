@@ -1,0 +1,80 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{52E67EDF-EEB1-4F70-8004-4048EEC99164}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{C59162FC-E879-4CBD-9E6E-9247F1678EE9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{1FA34616-301F-4253-9B43-BDC24C13424C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{39E84DFB-9711-4105-A931-6938849A82FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{B8808FA8-019F-475B-87AF-5B04BF369EF7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{A8A97136-31BB-4EBA-9862-96A48FEBB37F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swo.Chaas.Products.Persistence", "src\Persistence\Swo.Chaas.Products.Persistence\Swo.Chaas.Products.Persistence.csproj", "{57286E1F-6B7B-41C2-A4A2-F7F184DE3FD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swo.Chaas.Products.Infrastructure", "src\Infrastructure\Swo.Chaas.Products.Infrastructure\Swo.Chaas.Products.Infrastructure.csproj", "{D20EF2D8-B95C-4BFB-A574-7B2748F694ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swo.Chaas.Products.Domain.Entities", "src\Domain\Swo.Chaas.Products.Domain.Entities\Swo.Chaas.Products.Domain.Entities.csproj", "{FD836291-8513-4B8A-BDAF-E97AD998A902}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swo.Chaas.Products.Domain.BusinessRules", "src\Domain\Swo.Chaas.Products.Domain.BusinessRules\Swo.Chaas.Products.Domain.BusinessRules.csproj", "{4731B996-B3CB-46CE-89BB-3396166600CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swo.Chaas.Products.Application", "src\Application\Swo.Chaas.Products.Application\Swo.Chaas.Products.Application.csproj", "{5EDF46C3-2742-4DB6-A90D-3087BBF0F8A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swo.Chaas.Products.API", "src\API\Swo.Chaas.Products.API\Swo.Chaas.Products.API.csproj", "{F0ECF413-3EE5-4B1D-ACCC-2E93462BEDE6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57286E1F-6B7B-41C2-A4A2-F7F184DE3FD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57286E1F-6B7B-41C2-A4A2-F7F184DE3FD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57286E1F-6B7B-41C2-A4A2-F7F184DE3FD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57286E1F-6B7B-41C2-A4A2-F7F184DE3FD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D20EF2D8-B95C-4BFB-A574-7B2748F694ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D20EF2D8-B95C-4BFB-A574-7B2748F694ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D20EF2D8-B95C-4BFB-A574-7B2748F694ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D20EF2D8-B95C-4BFB-A574-7B2748F694ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD836291-8513-4B8A-BDAF-E97AD998A902}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD836291-8513-4B8A-BDAF-E97AD998A902}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD836291-8513-4B8A-BDAF-E97AD998A902}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD836291-8513-4B8A-BDAF-E97AD998A902}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4731B996-B3CB-46CE-89BB-3396166600CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4731B996-B3CB-46CE-89BB-3396166600CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4731B996-B3CB-46CE-89BB-3396166600CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4731B996-B3CB-46CE-89BB-3396166600CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EDF46C3-2742-4DB6-A90D-3087BBF0F8A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EDF46C3-2742-4DB6-A90D-3087BBF0F8A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EDF46C3-2742-4DB6-A90D-3087BBF0F8A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EDF46C3-2742-4DB6-A90D-3087BBF0F8A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0ECF413-3EE5-4B1D-ACCC-2E93462BEDE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0ECF413-3EE5-4B1D-ACCC-2E93462BEDE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0ECF413-3EE5-4B1D-ACCC-2E93462BEDE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0ECF413-3EE5-4B1D-ACCC-2E93462BEDE6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C59162FC-E879-4CBD-9E6E-9247F1678EE9} = {52E67EDF-EEB1-4F70-8004-4048EEC99164}
+		{1FA34616-301F-4253-9B43-BDC24C13424C} = {52E67EDF-EEB1-4F70-8004-4048EEC99164}
+		{39E84DFB-9711-4105-A931-6938849A82FA} = {52E67EDF-EEB1-4F70-8004-4048EEC99164}
+		{B8808FA8-019F-475B-87AF-5B04BF369EF7} = {52E67EDF-EEB1-4F70-8004-4048EEC99164}
+		{A8A97136-31BB-4EBA-9862-96A48FEBB37F} = {52E67EDF-EEB1-4F70-8004-4048EEC99164}
+		{57286E1F-6B7B-41C2-A4A2-F7F184DE3FD2} = {B8808FA8-019F-475B-87AF-5B04BF369EF7}
+		{D20EF2D8-B95C-4BFB-A574-7B2748F694ED} = {A8A97136-31BB-4EBA-9862-96A48FEBB37F}
+		{FD836291-8513-4B8A-BDAF-E97AD998A902} = {39E84DFB-9711-4105-A931-6938849A82FA}
+		{4731B996-B3CB-46CE-89BB-3396166600CE} = {39E84DFB-9711-4105-A931-6938849A82FA}
+		{5EDF46C3-2742-4DB6-A90D-3087BBF0F8A7} = {1FA34616-301F-4253-9B43-BDC24C13424C}
+		{F0ECF413-3EE5-4B1D-ACCC-2E93462BEDE6} = {C59162FC-E879-4CBD-9E6E-9247F1678EE9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B409FBB1-52F3-46E0-88AD-4BA3F6503BCC}
+	EndGlobalSection
+EndGlobal

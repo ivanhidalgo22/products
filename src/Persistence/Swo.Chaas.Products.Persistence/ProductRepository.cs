@@ -21,7 +21,7 @@ namespace Swo.Chaas.Products.Persistence
 
         public async Task<IList<Product>> GetProducts(int pageindex, int pagesize)
         {
-            var products = await ProductsDbContext.Products
+            /*var products = await ProductsDbContext.Products
                 .Include(x => x.Provider)
                 .Include(x => x.ProductType)
                 .Include(x => x.Skus).ThenInclude( s => s.SkuBillingCycle)
@@ -30,7 +30,8 @@ namespace Swo.Chaas.Products.Persistence
                 .AsNoTracking()
                 .ToListAsync();
 
-            return products;
+            return products;*/
+            return null;
         }
 
         public async Task<Product> GetProductById(Product product)

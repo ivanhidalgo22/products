@@ -1,0 +1,14 @@
+apiVersion: skaffold/v2beta19
+kind: Config
+metadata:
+  name: identityserver
+build:
+  artifacts:
+  - image: ivanhidalgo22/identity
+    docker:
+      dockerfile: dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - deployment.yaml
+    - service.yaml

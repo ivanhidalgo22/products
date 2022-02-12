@@ -15,7 +15,7 @@ RUN mkdir /build
 
 WORKDIR /app
 COPY --from=build /app .
-COPY --from=build /build /build
+COPY --from=build /build /app
 EXPOSE 80
 EXPOSE 443
 EXPOSE 5001

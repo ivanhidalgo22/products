@@ -1,14 +1,27 @@
 apiVersion: skaffold/v2beta19
 kind: Config
 metadata:
-  name: identityserver
+  name: ra-products
 build:
   artifacts:
-  - image: ivanhidalgo22/identity
+  - image: raiderpoc.azurecr.io/products
+  #- image: localhost:5000/products
     docker:
       dockerfile: dockerfile
+      noCache: true
 deploy:
   kubectl:
     manifests:
     - deployment.yaml
     - service.yaml
+portForward:
+  - resourceType: Service
+    resourceName: istio-ingressgateway
+    namespace: default
+    port: 443
+    localPort: 8443
+    address: 0.0.0.0
+profiles:
+  - name: dev
+    activation:
+      - command: dev

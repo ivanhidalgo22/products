@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-cpr
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:  
+  rules:
+  - host: identity.raider-poc.biz
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: identity-service
+          servicePort: 5000
+  - host: products.raider-poc.biz
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: product-service
+          servicePort: 5001
+  tls:
+  - hosts:
+    - identity.raider-poc.biz
+    secretName: identity-raider-poc-secret           
+  - hosts:
+    - products.raider-poc.biz
+    secretName: products-raider-poc-secret     

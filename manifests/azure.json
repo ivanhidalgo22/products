@@ -1,0 +1,9 @@
+{
+  "tenantId": "855b093e-7340-45c7-9f0c-96150415893e",
+  "subscriptionId": "fd95eef5-ba7d-4f3a-bdc0-1d012014be02",
+  "resourceGroup": "raider-poc", 
+  "useManagedIdentityExtension": true,
+  "userAssignedIdentityID": "4842fca1-dc75-4dc9-a82b-6698ffe1ff1a"  
+}
+
+

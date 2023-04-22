@@ -1,4 +1,4 @@
-name: ra-functions-devsecops-workflow
+name: sample-products-ci-workflow
 
 on: 
   workflow_dispatch:
@@ -27,7 +27,7 @@ env:
   NODE_VERSION: '14.x'                      # set this to the node version to use
   MONGO_USERNAME: "test"
   MONGO_PASSWORD: "test"
-  dotnet-version: '3.1.x' 
+  dotnet-version: '7.0.x' 
 
 jobs:
   ra-functions-CI-job:
@@ -41,8 +41,10 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ env.dotnet-version }}
-    - name: Install dependencies
+    - name: Install dependencies (dotnet restore)
       run: dotnet restore
+    - name: Build package (dotnet build)
+      run: dotnet build --configuration Debug --no-restore 
     - name: Test with dotnet
       run: dotnet test --logger trx --results-directory "TestResults-${{ env.dotnet-version }}"
     - name: Upload dotnet test results

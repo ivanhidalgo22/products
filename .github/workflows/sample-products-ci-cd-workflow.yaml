@@ -1,0 +1,62 @@
+
+name: sample-products-ci-cd-workflow
+
+on: 
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        type: string
+        default: 'debug'
+  push:
+    branches:
+      - "feature/**"
+      - "main"
+      - "release/**"
+  pull_request:
+    types:
+      - "opened"
+      - "reopened"
+      - "closed"
+  release:
+    types: [published]
+jobs:
+  #show-context:    
+    #runs-on: ubuntu-latest
+    #steps:
+      #- name: 'Show context'
+        #run: echo '${{ toJson(github) }}'
+  continuos-integration-job:
+    uses: ./.github/workflows/sample-products-ci-workflow.yaml
+    with:
+      dotnetVersion: '7.0.x'
+    secrets: inherit
+  deploy-sandbox:    
+    name: 'Deploy to sandbox'
+    if: startsWith(github.ref_name, 'feature/')
+    uses: './.github/workflows/sample-products-cd-workflow.yaml'
+    needs: [continuos-integration-job]
+    with:
+      environmentTarget: 'sandbox'
+      releaseVersion: 'release'
+      secrets: inherit
+  deploy-staging:
+    name: 'Deploy to dev-qa-staging'
+    if: github.event.pull_request.merged == true || github.ref == 'refs/heads/main'
+    uses: './.github/workflows/sample-products-cd-workflow.yaml'
+    needs: [deploy-sandbox]
+    with:
+      environmentTarget: 'staging'
+      releaseVersion: 'release'
+    secrets: inherit
+  deploy-production:
+    name: 'Deploy to production'
+    if: startsWith(github.head_ref, 'r-')
+    uses: './.github/workflows/sample-products-cd-workflow.yaml'
+    needs: [continuos-integration-job]
+    with:
+      environmentTarget: 'production'
+      releaseVersion: 'release'
+    secrets: inherit
+    

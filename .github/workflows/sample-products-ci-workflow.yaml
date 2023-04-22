@@ -1,25 +1,13 @@
 name: sample-products-ci-workflow
 
-on: 
-  workflow_dispatch:
+on:
+  workflow_call:
     inputs:
-      logLevel:
-        description: 'Log level'     
+      dotnetVersion:
+        description: 'dotnet version'
         required: true
-        default: 'warning'
-        
-  push:
-    branches:
-      - "feature/**"
-      - "main"
-
-        
-#on: [push, workflow_dispatch]
-  #push:
-    #branches:
-      #- "main"
-    #paths-ignore:
-     # - ".github/workflows/*"
+        type: string
+        default: '7.0.x'
      
 env:
   AZURE_FUNCTIONAPP_NAME: 'ra-ops-functions'   # set this to your function app name on Azure
@@ -30,7 +18,7 @@ env:
   dotnet-version: '7.0.x' 
 
 jobs:
-  ra-functions-CI-job:
+  sample-products-CI-job:
     runs-on: ubuntu-latest
     environment: sandbox
     
@@ -41,6 +29,17 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ env.dotnet-version }}
+    # You can test your matrix by printing the current dotnet version
+    - name: Display dotnet version
+      run: dotnet --version
+    - name: 'Caching dependencies' 
+      uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        # Look to see if there is a cache hit for the corresponding requirements file
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget
     - name: Install dependencies (dotnet restore)
       run: dotnet restore
     - name: Build package (dotnet build)

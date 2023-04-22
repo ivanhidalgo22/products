@@ -1,0 +1,27 @@
+name: ample-products-cd-workflow
+
+on:
+  workflow_call:
+    inputs:
+      environmentTarget:
+        description: 'where to release (sandbox, staging or production)'
+        required: true
+        type: string
+        default: 'sandbox'
+      releaseVersion:
+        description: 'release version to be deployed'
+        required: true
+        type: string
+        default: 'release'
+    #secrets:
+      #token:
+        #required: true
+
+jobs:
+  continuos-deployment-job:
+    runs-on: ubuntu-latest
+    environment: ${{inputs.environmentTarget}}
+    steps:
+    - name: "Deploy stage"
+      run: echo "Deploy started!"
+    

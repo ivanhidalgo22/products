@@ -1,0 +1,54 @@
+name: ra-functions-devsecops-workflow
+
+on: 
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+        
+  push:
+    branches:
+      - "feature/**"
+      - "main"
+
+        
+#on: [push, workflow_dispatch]
+  #push:
+    #branches:
+      #- "main"
+    #paths-ignore:
+     # - ".github/workflows/*"
+     
+env:
+  AZURE_FUNCTIONAPP_NAME: 'ra-ops-functions'   # set this to your function app name on Azure
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './functions' # set this to the path to your function app project, defaults to the repository root
+  NODE_VERSION: '14.x'                      # set this to the node version to use
+  MONGO_USERNAME: "test"
+  MONGO_PASSWORD: "test"
+  dotnet-version: '3.1.x' 
+
+jobs:
+  ra-functions-CI-job:
+    runs-on: ubuntu-latest
+    environment: sandbox
+    
+    steps:
+    - name: 'Checkout Source Code'                                                                                                                                                                             
+      uses: actions/checkout@v3
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.dotnet-version }}
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Test with dotnet
+      run: dotnet test --logger trx --results-directory "TestResults-${{ env.dotnet-version }}"
+    - name: Upload dotnet test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: dotnet-results-${{ env.dotnet-version }}
+        path: TestResults-${{ env.dotnet-version }}
+      # Use always() to always run this step to publish test results when there are test failures
+      if: ${{ always() }}

@@ -18,6 +18,9 @@ on:
     types:
       - "opened"
       - "reopened"
+      - "closed"
+  pull_request_review:
+    types: [submitted]
   release:
     types: [published]
 jobs:
@@ -33,7 +36,7 @@ jobs:
     secrets: inherit
   deploy-sandbox:    
     name: 'Deploy to sandbox'
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && github.ref == 'main'
     uses: './.github/workflows/sample-products-cd-workflow.yaml'
     needs: [continuos-integration-job]
     with:

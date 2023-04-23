@@ -1,6 +1,10 @@
 
 name: sample-products-ci-cd-workflow
 
+concurrency:
+  group: default
+  #cancel-in-progress: true #cancel any currently running job or workflow in the same concurrency group.
+
 on: 
   workflow_dispatch:
     inputs:
@@ -34,7 +38,7 @@ jobs:
     secrets: inherit
   deploy-sandbox:    
     name: 'Deploy to sandbox'
-    if: github.event_name == 'pull_request' &&  (startsWith(github.head_ref, 'feature') || github.ref == 'main')
+    if: github.event_name == 'pull_request'
     uses: './.github/workflows/sample-products-cd-workflow.yaml'
     needs: [continuos-integration-job]
     with:
@@ -43,7 +47,7 @@ jobs:
       #secrets: inherit
   deploy-staging:
     name: 'Deploy to dev-qa-staging'
-    if: github.event.pull_request.merged == true && github.ref == 'main'
+    if: github.event.pull_request.merged == true && github.ref == 'refs/heads/main'
     uses: './.github/workflows/sample-products-cd-workflow.yaml'
     needs: [deploy-sandbox]
     with:
@@ -52,7 +56,7 @@ jobs:
     #secrets: inherit
   deploy-production:
     name: 'Deploy to production'
-    if: startsWith(github.head_ref, 'r-')
+    if: github.event_name == 'release' && github.event.action == 'published'
     uses: './.github/workflows/sample-products-cd-workflow.yaml'
     needs: [continuos-integration-job]
     with:

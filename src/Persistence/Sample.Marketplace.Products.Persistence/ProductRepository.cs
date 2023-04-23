@@ -22,7 +22,12 @@ namespace Sample.Marketplace.Products.Persistence
             ProductsDbContext = dbContext;
         }
 
-        
+        /// <summary>
+        /// Gets product list.
+        /// </summary>
+        /// <param name="pageindex">list index</param>
+        /// <param name="pagesize">number of products to be returned</param>
+        /// <returns></returns>
         public async Task<IList<Product>> GetProducts(int pageindex, int pagesize)
         {
             SecretClientOptions options = new SecretClientOptions()
@@ -69,6 +74,11 @@ namespace Sample.Marketplace.Products.Persistence
             return products;
         }
 
+        /// <summary>
+        /// Gets a product by its identifier.
+        /// </summary>
+        /// <param name="product">product to find into the database.</param>
+        /// <returns>product from the database.</returns>
         public async Task<Product> GetProductById(Product product)
         {
             var products = await ProductsDbContext.Products

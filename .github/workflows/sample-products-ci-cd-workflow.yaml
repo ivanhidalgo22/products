@@ -18,7 +18,6 @@ on:
     types:
       - "opened"
       - "reopened"
-      - "closed"
   release:
     types: [published]
 jobs:
@@ -34,7 +33,7 @@ jobs:
     secrets: inherit
   deploy-sandbox:    
     name: 'Deploy to sandbox'
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && !github.event.action == 'closed'
     uses: './.github/workflows/sample-products-cd-workflow.yaml'
     needs: [continuos-integration-job]
     with:
@@ -43,7 +42,7 @@ jobs:
       #secrets: inherit
   deploy-staging:
     name: 'Deploy to dev-qa-staging'
-    if: github.event.pull_request.merged == true && github.ref == 'refs/heads/main'
+    if: github.event.pull_request.merged == true && github.ref == 'main'
     uses: './.github/workflows/sample-products-cd-workflow.yaml'
     needs: [deploy-sandbox]
     with:

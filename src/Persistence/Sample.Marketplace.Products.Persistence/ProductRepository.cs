@@ -22,6 +22,7 @@ namespace Sample.Marketplace.Products.Persistence
             ProductsDbContext = dbContext;
         }
 
+        
         public async Task<IList<Product>> GetProducts(int pageindex, int pagesize)
         {
             SecretClientOptions options = new SecretClientOptions()

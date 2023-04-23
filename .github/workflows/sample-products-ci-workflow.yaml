@@ -47,7 +47,7 @@ jobs:
       run: dotnet restore
     - name: Build package (dotnet build)
       run: dotnet build --configuration Debug --no-restore 
-    - name: Test with dotnet
+    - name: Test with dotnet (dotnet test)
       run: dotnet test --logger trx --results-directory "TestResults-${{ env.dotnet-version }}"
     - name: Upload dotnet test results
       uses: actions/upload-artifact@v3

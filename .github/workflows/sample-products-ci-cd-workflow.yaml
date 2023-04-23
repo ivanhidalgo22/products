@@ -43,7 +43,7 @@ jobs:
       #secrets: inherit
   deploy-staging:
     name: 'Deploy to dev-qa-staging'
-    if: github.event.pull_request.merged == true && github.ref == 'refs/heads/main'
+    if: github.event.pull_request.merged == true && github.ref == 'main'
     uses: './.github/workflows/sample-products-cd-workflow.yaml'
     needs: [deploy-sandbox]
     with:

@@ -19,7 +19,7 @@ env:
 
 jobs:
   sample-products-CI-job:
-    runs-on: arc-runner-set
+    runs-on: example-runnerdeploy-wrjfd-mltql
     
     steps:
   

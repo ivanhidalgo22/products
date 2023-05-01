@@ -19,7 +19,7 @@ env:
 
 jobs:
   sample-products-CI-job:
-    runs-on: example-runnerdeploy-x5srt-txs8x
+    runs-on: example-runnerdeploy
     
     steps:
   

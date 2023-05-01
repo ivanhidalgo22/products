@@ -19,7 +19,7 @@ on:
 
 jobs:
   continuos-deployment-job:
-    runs-on: example-runnerdeploy-x5srt-txs8x
+    runs-on: example-runnerdeploy
     environment: ${{inputs.environmentTarget}}
     steps:
     - name: "Deploy stage"

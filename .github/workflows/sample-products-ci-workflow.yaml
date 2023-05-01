@@ -19,7 +19,7 @@ env:
 
 jobs:
   sample-products-CI-job:
-    runs-on: example-runnerdeploy
+    runs-on: [ self-hosted , Linux]
     
     steps:
   

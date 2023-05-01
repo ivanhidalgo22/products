@@ -19,7 +19,7 @@ on:
 
 jobs:
   continuos-deployment-job:
-    runs-on: example-runnerdeploy
+    runs-on: [ self-hosted , Linux]
     environment: ${{inputs.environmentTarget}}
     steps:
     - name: "Deploy stage"

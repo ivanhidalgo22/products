@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Sample.Marketplace.Domain.Entities.Features.Product;
 using Sample.Marketplace.Products.Domain.Entities.Features.Product;
+using Microsoft.Extensions.Configuration;
 
 #nullable disable
 
@@ -90,7 +92,8 @@ namespace Sample.Marketplace.Products.Persistence.DbContext
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Products;Integrated Security=True;")
+                string connectionString = ConfigurationManager.ConnectionStrings["ProductsConnectionString"].ConnectionString;
+                optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
                 .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, Microsoft.Extensions.Logging.LogLevel.Information)
                 .EnableSensitiveDataLogging();
             }

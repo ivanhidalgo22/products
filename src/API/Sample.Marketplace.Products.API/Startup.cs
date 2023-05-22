@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,11 +9,16 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Sample.Marketplace.Products.Application;
 using Sample.Marketplace.Products.Domain.Entities.Features.Product.Repositories;
 using Sample.Marketplace.Products.Domain.Entities.Repositories;
 using Sample.Marketplace.Products.Persistence;
 using Sample.Marketplace.Products.Persistence.DbContext;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Sample.Marketplace.Products.API
 {
@@ -31,7 +38,8 @@ namespace Sample.Marketplace.Products.API
 
             services.AddApplicationServices();
 
-            services.AddDbContext<ProductsDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductsConnectionString")));
+            var dataBaseConnectionString = Configuration.GetConnectionString("ProductsConnectionString");
+            services.AddDbContext<ProductsDbContext>(options => options.UseMySql(dataBaseConnectionString, ServerVersion.AutoDetect(dataBaseConnectionString)));
 
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ISkuRepository, SkuRepository>();
@@ -49,6 +57,29 @@ namespace Sample.Marketplace.Products.API
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
+
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
+                {
+
+                    options.Authority = "https://localhost:44365/";
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = false
+                    };
+
+                });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ApiScope", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireClaim("scope", "product");
+                });
+            });
+
+
 
         }
 
@@ -69,6 +100,7 @@ namespace Sample.Marketplace.Products.API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Products Management API");
             });
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -90,8 +122,8 @@ namespace Sample.Marketplace.Products.API
                     Description = "Products Management API",
                     Contact = new OpenApiContact
                     {
-                        Name = "SoftwareONE Company",
-                        Email = "ihidalgo@intergrupo.com"
+                        Name = "Labs Company",
+                        Email = "ivanhidalgo22@gmail.com"
                     }
                 });
             });

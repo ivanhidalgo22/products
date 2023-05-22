@@ -17,23 +17,10 @@ namespace Sample.Marketplace.Products.API.Controllers
         public ISkuService SkuService { set; get; }
         private readonly ILogger<SkuController> _logger;
 
-
-
         public SkuController(ILogger<SkuController> logger, ISkuService skuService)
         {
             _logger = logger;
             SkuService = skuService;
-        }
-
-        [HttpGet]
-        [QueryStringConstraintAttribute("pageindex", true)]
-        [QueryStringConstraintAttribute("pagesize", true)]
-        public async Task<PaginatedElementsViewModel<SkuDto>> GetSkus([FromQuery] int pageindex = 0, [FromQuery] int pagesize = 10)
-        {
-            var skus = await SkuService.GetSkus(pageindex, pagesize);
-            var modelReturn = new PaginatedElementsViewModel<SkuDto>(
-                                             pageindex, pagesize, skus.Count, skus);
-            return modelReturn;
         }
 
         [HttpGet]

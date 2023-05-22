@@ -30,47 +30,23 @@ namespace Sample.Marketplace.Products.Persistence
         /// <returns></returns>
         public async Task<IList<Product>> GetProducts(int pageindex, int pagesize)
         {
-            SecretClientOptions options = new SecretClientOptions()
-            {
-                Retry =
-                {
-                    Delay= TimeSpan.FromSeconds(2),
-                    MaxDelay = TimeSpan.FromSeconds(16),
-                    MaxRetries = 5,
-                    Mode = RetryMode.Exponential
-                 }
-            };
-
-            string userAssignedClientId = "0e3d1b06-e8ee-4902-94bc-86c08464d9bd";
-            var credential = new DefaultAzureCredential(new DefaultAzureCredentialOptions { ManagedIdentityClientId = userAssignedClientId });
-
-
-
-            var client = new SecretClient(new Uri("https://raiderpockeyvault2.vault.azure.net/"), credential, options);
-
-            KeyVaultSecret secret = client.GetSecret("chaasadmin");
-
-            string secretValue = secret.Value;
-
-
-            var products = new List<Product>();
+            /*var products = new List<Product>();
             var product = new Product();
             product.Id = Guid.NewGuid().ToString();
             product.ProductType = new ProductType();
             product.ProductType.Id = Guid.NewGuid().ToString();
             product.ProductType.SubType = secretValue;
             product.Provider = new Provider() {Id = 1, Name = "IBM"};
-            products.Add(product);
-            /*var products = await ProductsDbContext.Products
+            products.Add(product);*/
+            var products = await ProductsDbContext.Products
                 .Include(x => x.Provider)
                 .Include(x => x.ProductType)
-                .Include(x => x.Skus).ThenInclude( s => s.SkuBillingCycle)ls -
+                .Include(x => x.Skus).ThenInclude( s => s.SkuBillingCycle)
                 .Skip(pageindex)
                 .Take(pagesize)
                 .AsNoTracking()
                 .ToListAsync();
 
-            return products;*/
             return products;
         }
 

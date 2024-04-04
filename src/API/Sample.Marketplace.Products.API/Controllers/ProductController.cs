@@ -30,7 +30,7 @@ namespace Sample.Marketplace.Products.API.Controllers
         /// <param name="pagesize">page size (it's by default 10)</param>
         /// <returns>paginated product list.</returns>
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         public async Task<PaginatedElementsViewModel<ProductReponseDto>> GetProducts([FromQuery] int pageindex = 0, [FromQuery] int pagesize = 10)
         {
             var products = await ProductService.GetProducts(pageindex, pagesize);

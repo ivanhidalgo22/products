@@ -6,7 +6,7 @@ COPY . .
 RUN dotnet restore
 RUN dotnet publish -c Debug -o /app 
 # Stage 2
-FROM --platform=linux/amd64 mcr.microsoft.com/dotnet/aspnet:7.0
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
 #RUN apt-get update --yes && apt-get install --yes procps && rm -rf /var/lib/apt/lists/*
 
 #RUN mkdir /build
@@ -19,8 +19,9 @@ COPY --from=build-env /app .
 EXPOSE 80
 EXPOSE 443
 EXPOSE 5001
+ENV ASPNETCORE_ENVIRONMENT='Development'
 ENV ASPNETCORE_URLS http://*:5001
-#ENV MYSQL_SERVER=""
-#ENV MYSQL_USER=""
-#ENV MYSQL_PASSWORD=""
+ENV MYSQL_SERVER=sample-marketplace-db.mysql.database.azure.com
+ENV MYSQL_USER="ihidalgo"
+ENV MYSQL_PASSWORD="308549@Hidalg@"
 ENTRYPOINT ["dotnet", "Sample.Marketplace.Products.API.dll"]

@@ -11,6 +11,10 @@ nupkg/
 # Rider
 .idea
 
+.env
+
+#dockerfile.debug
+
 # User-specific files
 *.suo
 *.user

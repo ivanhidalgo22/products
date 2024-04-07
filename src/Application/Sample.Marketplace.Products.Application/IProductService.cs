@@ -11,5 +11,6 @@ namespace Sample.Marketplace.Products.Application
     {
         public Task<IList<ProductReponseDto>> GetProducts(int pageindex, int pagesize);
         public Task<ProductReponseDto> GetProductById(string productId);
+        public Task CreateProduct(ProductRequestDto productRequestDto);
     }
 }

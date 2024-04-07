@@ -10,15 +10,19 @@ using Azure.Core;
 using Sample.Marketplace.Products.Domain.Entities.Features.Product.Repositories;
 using Sample.Marketplace.Products.Domain.Entities.Features.Product;
 using Sample.Marketplace.Products.Persistence.DbContext;
+using Microsoft.Extensions.Logging;
 
 namespace Sample.Marketplace.Products.Persistence
 {
     public class ProductRepository : IProductRepository
     {
         public ProductsDbContext ProductsDbContext { set; get; }
+        private readonly ILogger<ProductRepository> _logger;
 
-        public ProductRepository(ProductsDbContext dbContext)
+
+        public ProductRepository(ILogger<ProductRepository> logger,ProductsDbContext dbContext)
         {
+            _logger = logger;
             ProductsDbContext = dbContext;
         }
 
@@ -66,6 +70,20 @@ namespace Sample.Marketplace.Products.Persistence
               .FirstOrDefaultAsync();
 
             return products;
+        }
+
+        public async Task CreateProduct(Product product)
+        {
+            try
+            {
+                ProductsDbContext.Products.Add(product);
+                await ProductsDbContext.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("error saving new product.." + ex);
+            }
+            
         }
     }
 }

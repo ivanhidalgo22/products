@@ -27,6 +27,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Marketplace.Products
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Marketplace.Products.API", "src\API\Sample.Marketplace.Products.API\Sample.Marketplace.Products.API.csproj", "{4F33436C-BEF5-46E1-9CAF-0CE00E4C8F32}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F4967375-C975-4C34-B0D1-EC31CA3A8009}"
+	ProjectSection(SolutionItems) = preProject
+		skaffold.yaml = skaffold.yaml
+		service.yaml = service.yaml
+		script.ps1 = script.ps1
+		dockerfile = dockerfile
+		deployment.yaml = deployment.yaml
+		_skaffold.ps1 = _skaffold.ps1
+		_local_skaffold.ps1 = _local_skaffold.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

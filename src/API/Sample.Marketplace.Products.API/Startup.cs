@@ -21,6 +21,7 @@ using Sample.Marketplace.Products.Persistence.DbContext;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Sample.Marketplace.Products.Application.Profiles;
 
 namespace Sample.Marketplace.Products.API
 {
@@ -40,11 +41,10 @@ namespace Sample.Marketplace.Products.API
 
             services.AddApplicationServices();
 
-            //var dataBaseConnectionString = Configuration.GetConnectionString("ProductsConnectionString");
             var variables = Environment.GetEnvironmentVariables();
             var server = Environment.GetEnvironmentVariable("MYSQL_SERVER");
             var dataBaseConnectionString = $"Server={Environment.GetEnvironmentVariable("MYSQL_SERVER")}; User ID={Environment.GetEnvironmentVariable("MYSQL_USER")}; Password={Environment.GetEnvironmentVariable("MYSQL_PASSWORD")}; Database=products;";
-            //$"{Math.PI,FieldWidthRightAligned} - default formatting of the pi number"
+            
             services.AddDbContext<ProductsDbContext>(options => options.UseMySql(dataBaseConnectionString, ServerVersion.AutoDetect(dataBaseConnectionString)));
 
             services.AddScoped<IProductRepository, ProductRepository>();
@@ -64,7 +64,6 @@ namespace Sample.Marketplace.Products.API
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
 
-            var domain = "dev-3ipf5qm2.auth0.com";
             /*services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>
                 {
@@ -95,6 +94,8 @@ namespace Sample.Marketplace.Products.API
                 options.Authority = "https://dev-3ipf5qm2.auth0.com/";
                 options.Audience = "cypress";
             });
+            
+            services.AddAutoMapper(typeof(MappingProfile),typeof(MappingProductProfile));
 
 
 

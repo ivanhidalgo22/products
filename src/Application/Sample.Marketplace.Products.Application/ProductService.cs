@@ -32,5 +32,12 @@ namespace Sample.Marketplace.Products.Application
             var result = _mapper.Map<ProductReponseDto>(productReturned);
             return result;
         }
+
+        public async Task CreateProduct(ProductRequestDto productRequestDto)
+        {   
+            var product = _mapper.Map<Product>(productRequestDto);
+            await Task.Run(() => ProductRepository.CreateProduct(product));
+
+        }
     }
 }

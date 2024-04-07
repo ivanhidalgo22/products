@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Logging;
 using Sample.Marketplace.Products.API.ViewModel;
 using Sample.Marketplace.Products.Application;
 using Sample.Marketplace.Products.Application.ProductDtos;
+using Sample.Marketplace.Products.Domain.Entities.Features.Product;
 using System.Threading.Tasks;
 
 namespace Sample.Marketplace.Products.API.Controllers
@@ -50,6 +52,14 @@ namespace Sample.Marketplace.Products.API.Controllers
             var productToReturn = await ProductService.GetProductById(productId);
             
             return productToReturn;
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(Product), 201)]
+        public async Task<ActionResult> CreateProduct([FromBody] ProductRequestDto productRequestDto)
+        {
+            await ProductService.CreateProduct(productRequestDto);
+            return Ok();
         }
 
     }

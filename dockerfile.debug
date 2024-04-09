@@ -21,7 +21,7 @@ EXPOSE 443
 EXPOSE 5001
 ENV ASPNETCORE_ENVIRONMENT='Development'
 ENV ASPNETCORE_URLS http://*:5001
-ENV MYSQL_SERVER=sample-marketplace-db.mysql.database.azure.com
-ENV MYSQL_USER="ihidalgo"
-ENV MYSQL_PASSWORD="308549@Hidalg@"
+ENV MYSQL_SERVER=""
+ENV MYSQL_USER=""
+ENV MYSQL_PASSWORD=""
 ENTRYPOINT ["dotnet", "Sample.Marketplace.Products.API.dll"]

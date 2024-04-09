@@ -40,6 +40,8 @@ namespace Sample.Marketplace.Products.API
             AddSwagger(services);
 
             services.AddApplicationServices();
+            var configurationBuilder = new ConfigurationBuilder();
+            IConfiguration configuration = configurationBuilder.Build();
 
             var variables = Environment.GetEnvironmentVariables();
             var server = Environment.GetEnvironmentVariable("MYSQL_SERVER");
@@ -64,35 +66,29 @@ namespace Sample.Marketplace.Products.API
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
 
-            /*services.AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", options =>
-                {
-
-                    options.Authority = "https://localhost:44365/";
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateAudience = false
-                    };
-
-                });
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("ApiScope", policy =>
-                {
-                    policy.RequireAuthenticatedUser();
-                    policy.RequireClaim("scope", "product");
-                });
-            });*/
-
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                options.Authority = "https://dev-3ipf5qm2.auth0.com/";
+                options.Authority = "https://dev-3ipf5qm2.auth0.com";
                 options.Audience = "cypress";
+            });
+
+            services.AddAuthorization(o =>
+            {
+                o.AddPolicy("read:products", p => p.
+                    RequireAuthenticatedUser().
+                    RequireClaim("permissions", "read:products"));
+
+                o.AddPolicy("create:products", p => p.
+                    RequireAuthenticatedUser().
+                    RequireClaim("permissions", "create:products"));
+
+                o.AddPolicy("delete:products", p => p.
+                    RequireAuthenticatedUser().
+                    RequireClaim("permissions", "delete:products"));
             });
             
             services.AddAutoMapper(typeof(MappingProfile),typeof(MappingProductProfile));
